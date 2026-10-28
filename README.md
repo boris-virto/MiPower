@@ -31,6 +31,33 @@ Alternatively, you can click the **Sponsor button (❤️)** in the top right co
 
 ---
 
+## Bluetooth pairing and projector compatibility
+
+MiPower's wake method sends a Bluetooth pairing request. Before each request,
+MiPower now checks the target's current pairing state. If it is already paired,
+or that state cannot be read, the request is skipped. Existing bonds are not
+removed or replaced. For pairing-based wake, use an adapter that does not
+already have a bond with the target.
+
+This matters when the Home Assistant host also emulates a Bluetooth remote or
+keyboard for the same device. A Xiaomi Mi Smart Compact Projector (`MiProjM05`,
+Android TV 9) was investigated with Ubuntu and BlueZ 5.72. Its existing
+Classic HID bond made a direct `Pair` request return `AlreadyExists`; wake from
+deep standby has **not** been verified. Using the same physical remote as a Mi
+Box does not establish projector compatibility. This change fixes CLI prompt
+recognition and protects existing pairings; it does not add a proven projector
+wake protocol.
+
+## Development checks
+
+The focused Bluetooth tests require Python 3.10+ and `pexpect`, without starting
+Home Assistant:
+
+```bash
+python -m pip install pexpect
+python -m unittest discover -s tests -v
+```
+
 ## Prerequisites
 
 - **Home Assistant OS / Supervised / Container:** This integration requires a Linux-based Home Assistant installation where the `bluetoothctl` command-line tool is available and accessible. It **DOES NOT WORK** on Windows-based Home Assistant Core installations.
