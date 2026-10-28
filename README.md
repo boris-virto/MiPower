@@ -51,6 +51,11 @@ host address was accepted into the firmware's wake-remote list. The MiPower
 switch does not automatically use this host tool. Compatibility with other
 firmware remains unverified.
 
+For an existing HID remote that wakes only immediately after screen-off, start
+with the [English troubleshooting and setup guide](docs/mi-projector-m05.md).
+It covers address selection, firmware recognition, a full standby test,
+HA MQTT/API examples, failure diagnosis and reverting your own changes.
+
 ## Development checks
 
 The focused Bluetooth tests require Python 3.10+ and `pexpect`, without starting
