@@ -41,12 +41,15 @@ already have a bond with the target.
 
 This matters when the Home Assistant host also emulates a Bluetooth remote or
 keyboard for the same device. A Xiaomi Mi Smart Compact Projector (`MiProjM05`,
-Android TV 9) was investigated with Ubuntu and BlueZ 5.72. Its existing
-Classic HID bond made a direct `Pair` request return `AlreadyExists`; wake from
-deep standby has **not** been verified. Using the same physical remote as a Mi
-Box does not establish projector compatibility. This change fixes CLI prompt
-recognition and protects existing pairings; it does not add a proven projector
-wake protocol.
+Android TV 9) returned `AlreadyExists` for a direct pairing request on its
+existing Classic HID bond. Using the same physical remote as a Mi Box does
+not establish projector compatibility.
+
+An opt-in [experimental projector wake sender](docs/mi-projector-m05.md) is
+provided separately. It woke the investigated projector after its unchanged
+host address was accepted into the firmware's wake-remote list. The MiPower
+switch does not automatically use this host tool. Compatibility with other
+firmware remains unverified.
 
 ## Development checks
 
